@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+.env
+.DS_Store
+Thumbs.db
+
+# datasets, checkpoints and generated media
+data/raw/
+checkpoints/
+outputs/
+*.pt
+*.pth
+*.safetensors
+*.mp4

@@ -1,0 +1,10 @@
+# Direct dependencies for the training and inference code described in the report.
+# The actual runs used the Kaggle image, which already ships torch, torchvision and
+# transformers. These are the minimum versions the code assumes.
+torch>=2.0
+torchvision>=0.15
+numpy
+pillow
+matplotlib
+tqdm
+huggingface_hub
