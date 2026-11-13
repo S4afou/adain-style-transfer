@@ -1,9 +1,9 @@
 # AdaIN style transfer
 
-A from-scratch reimplementation of *Arbitrary Style Transfer in Real-time with Adaptive
+This is my from-scratch rebuild of *Arbitrary Style Transfer in Real-time with Adaptive
 Instance Normalization* (Huang and Belongie, ICCV 2017). A frozen VGG-19 encoder, a
 parameter-free AdaIN layer and a trained mirrored decoder, trained on MS-COCO content
-images and WikiArt styles across several ephemeral Kaggle sessions.
+images and WikiArt styles across several short Kaggle sessions.
 
 | Result | Value | Context |
 | --- | --- | --- |
@@ -11,8 +11,8 @@ images and WikiArt styles across several ephemeral Kaggle sessions.
 | Final configuration | batch 32, 40,000 iterations | two T4 GPUs, about 7 to 8 hours |
 | Planned video throughput | 15 to 30 FPS | 256 px frames, extension not measured |
 
-> **Status:** this repository currently holds the method notes and the figures. The training
-> and inference code is being added separately, so it does not run yet.
+> **Status:** this repository currently holds the method notes and the figures. I am adding
+> the training and inference code separately, so it does not run yet.
 
 ![AdaIN architecture](assets/architecture.png)
 
@@ -34,7 +34,7 @@ images and WikiArt styles across several ephemeral Kaggle sessions.
 
 ![Training curves](assets/training-curves.png)
 
-Three configurations were compared:
+I compared three configurations:
 
 | Batch | Iterations | Learning rate | GPUs | Approx. time | Outcome |
 | --- | --- | --- | --- | --- | --- |
@@ -42,13 +42,14 @@ Three configurations were compared:
 | 32 | 40,000 | 4e-4 | 2 x T4 | 7 to 8 h | Selected |
 | 64 | 20,000 | 8e-4 | 2 x T4 | 7 to 8 h | Weaker style transfer, rejected |
 
-Two infrastructure details made multi-session training possible on Kaggle:
+Two details made multi-session training possible on Kaggle:
 
-- **Checkpointing.** Decoder weights, optimizer state and the loss history are uploaded to a
-  Hugging Face model repository at every checkpoint interval. On session start the resume
-  cell pulls the highest checkpoint and restores everything before training continues.
-- **Reproducible sampling.** Instead of relying on a per-epoch shuffling generator, the
-  index sequence for all iterations is generated once with a fixed seed. Resuming at
+- **Checkpointing.** I upload the decoder weights, optimizer state and the loss history to a
+  Hugging Face model repository at every checkpoint interval. When a session starts, the
+  resume cell pulls the highest checkpoint and restores everything before training
+  continues.
+- **Reproducible sampling.** Instead of relying on a per-epoch shuffling generator, I
+  generate the index sequence for all iterations once with a fixed seed. Resuming at
   iteration k is then just a slice of that sequence.
 
 ## Results
@@ -77,18 +78,18 @@ assets/                   architecture, training curves, qualitative grid, alpha
 data/README.md            dataset sources (MS-COCO 2017 and WikiArt)
 ```
 
-Commit dates reflect when the work was done. The history was reconstructed from the
-report and its figures, because the training code lived in ephemeral Kaggle sessions.
+Commit dates reflect when the work was done. I reconstructed the history from the report and
+its figures, because the training code lived in ephemeral Kaggle sessions.
 
 ## Team and context
 
-Course project for the Deep Learning module (ESI-SBA, 2025/2026, taught by Prof. N. Dif).
-The report lists four authors: Ben Terki Abdel-Ouakil, Medjahri Mohammed Safouane,
+This was a course project for the Deep Learning module (ESI-SBA, 2025/2026, taught by Prof.
+N. Dif). We worked as a team of four: Ben Terki Abdel-Ouakil, Medjahri Mohammed Safouane,
 Aini Ines and Benayed Mohammed Amjed.
 
 I implemented the AdaIN encoder and decoder, owned the 2xT4 DataParallel runs, the batch
 size and iteration comparisons, the Hugging Face checkpointing and resume, and the 512x512
-inference benchmark. The literature study and the report were shared.
+inference benchmark. We shared the literature study and the report.
 
 ## References
 
@@ -99,3 +100,6 @@ inference benchmark. The literature study and the report were shared.
   Transfer and Super-Resolution", ECCV.
 - K. Simonyan and A. Zisserman (2014), "Very Deep Convolutional Networks for Large-Scale
   Image Recognition".
+
+More about this project on my portfolio:
+https://safouane-medjahri.vercel.app/projects/adain-style-transfer
