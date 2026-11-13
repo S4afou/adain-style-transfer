@@ -84,8 +84,7 @@ its figures, because the training code lived in ephemeral Kaggle sessions.
 ## Team and context
 
 This was a course project for the Deep Learning module (ESI-SBA, 2025/2026, taught by Prof.
-N. Dif). We worked as a team of four: Ben Terki Abdel-Ouakil, Medjahri Mohammed Safouane,
-Aini Ines and Benayed Mohammed Amjed.
+N. Dif). We worked as a team of four.
 
 I implemented the AdaIN encoder and decoder, owned the 2xT4 DataParallel runs, the batch
 size and iteration comparisons, the Hugging Face checkpointing and resume, and the 512x512
